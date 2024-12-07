@@ -1,0 +1,25 @@
+{
+  "name": "titoshadow/ids-rule-parser",
+  "description": "A PHP library for parsing IDS rules (Suricata, Snort), ported from py-suricataparser",
+  "keywords": ["IDS", "Suricata", "Snort", "parser"],
+  "type": "library",
+  "license": "MIT",
+  "version": "0.0.1",
+  "authors": [
+    {
+      "name": "Jorge Ibáñez",
+      "email": "ibanezfelipejorge@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "IDSRuleParser\\": "src/"
+    }
+  },
+  "require": {
+    "php": "^8.4"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.0"
+  }
+}
