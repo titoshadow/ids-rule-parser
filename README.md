@@ -1,16 +1,14 @@
 # IDSRuleParser
 
-**IDSRuleParser** is a lightweight, framework-agnostic PHP library for parsing Intrusion Detection System (IDS) rules, such as Suricata or Snort rules. It provides tools to extract and manipulate key components of IDS rules, making it easier to process, validate, and analyze them programmatically.
+Lightweight, native PHP library for parsing IDS rules, such as Suricata or Snort rules. 
 
 This is a port from py-suricataparser on https://github.com/m-chrome/py-suricataparser
 
 
 ## Features
 
-- Parse individual IDS rules and extract their components.
-- Support for rule options, including metadata parsing.
-- Framework-independent for broad compatibility.
-- Easy-to-extend structure for handling additional rule attributes.
+- Parse individual IDS rules, lists or files.
+- Framework-independent 
 
 ---
 
@@ -21,5 +19,3 @@ To include `IDSRuleParser` in your project, use Composer to add it as a dependen
 ```bash
 composer require titoshadow/ids-rule-parser
 ```
-
-## Contributing
