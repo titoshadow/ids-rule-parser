@@ -6,26 +6,11 @@ namespace IDSRuleParser;
 class Rule
 {
     public bool $enabled;
-    public string $action {
-        get {
-            return $this->action;
-        }
-    }
-    public string $header {
-        get {
-            return $this->header;
-        }
-    }
-    public array $options {
-        &get {
-            return $this->options;
-        }
-    }
-    public ?string $raw {
-        get {
-            return $this->raw;
-        }
-    }
+    public string $action;
+
+    public string $header;
+    public array $options;
+    public ?string $raw;
 
     private string $msg;
     private int $sid;
@@ -101,7 +86,6 @@ class Rule
         return null;
     }
 
-
     public function getMsg(): ?string
     {
         foreach ($this->options as $option) {
@@ -110,6 +94,26 @@ class Rule
             }
         }
         return null;
+    }
+
+    public function getRaw(): ?string
+    {
+        return $this->raw;
+    }
+
+    public function getAction(): string
+    {
+        return $this->action;
+    }
+
+    public function getHeader(): string
+    {
+        return $this->header;
+    }
+
+    public function getOptions(): array
+    {
+        return $this->options;
     }
 
     private function buildRule(): void

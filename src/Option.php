@@ -11,16 +11,8 @@ class Option
     const string REV = 'rev';
     const string SID = 'sid';
 
-    public string $name {
-        get {
-            return $this->name;
-        }
-    }
-    public mixed $value {
-        get {
-            return $this->value;
-        }
-    }
+    public string $name;
+    public mixed $value;
 
     public function __construct($name, $value = null)
     {
@@ -37,5 +29,13 @@ class Option
         return "{$this->name}:{$this->value};";
     }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
 
+    public function getValue()
+    {
+        return $this->value;
+    }
 }
