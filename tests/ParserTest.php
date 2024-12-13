@@ -19,7 +19,7 @@ class ParserTest extends TestCase
             . 'flowbits:unset,otherbit; http_header; pcre:"/\/[a-f0-9]{16}\/([a-z0-9]{1,3}\/)?'
             . 'setup\.(exe|zip)$/U"; pcre:"/^Host\x3a\s.+\.in\r?$/Hmi"; metadata:stage,hostile_download; '
             . 'reference:url,isc.sans.edu/diary/+Vulnerabilityqueerprocessbrittleness/13501; '
-            . 'classtype:trojan-activity; sid:2014929; rev:1; priority:7; target:dest_ip;)';
+            . 'classtype:trojan-activity; sid:2014929; rev:1; priority:7; target:src_ip;)';
 
         $parsedRule = $parser->parseRule($rule);
 
