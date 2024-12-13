@@ -7,11 +7,8 @@ use Throwable;
 
 class RuleParserException extends Exception
 {
-    protected string $rule {
-        get {
-            return $this->rule;
-        }
-    }
+    protected string $rule;
+
 
     /**
      * RuleParserException constructor.
@@ -28,4 +25,8 @@ class RuleParserException extends Exception
         parent::__construct($message, $code, $previous);
     }
 
+    public function getRule(): string
+    {
+        return $this->rule;
+    }
 }
