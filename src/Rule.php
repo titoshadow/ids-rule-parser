@@ -16,7 +16,10 @@ class Rule
     private int $sid;
     private int $gid;
     private int $rev;
+
+    private int $priority;
     private string $classtype;
+    private string $target;
 
 
     public function __construct(bool $enabled, string $action, string $header, array $options, ?string $raw = null)
@@ -42,20 +45,20 @@ class Rule
     private function buildOptions(): void
     {
         $metadata = [];
+        $propertyMap = [
+            Option::MSG => function ($value) { $this->msg = trim($value, '"'); },
+            Option::SID => function ($value) { $this->sid = (int)$value; },
+            Option::GID => function ($value) { $this->gid = (int)$value; },
+            Option::REV => function ($value) { $this->rev = (int)$value; },
+            Option::PRIORITY => function ($value) { $this->priority = (int)$value; },
+            Option::CLASSTYPE => function ($value) { $this->classtype = $value; },
+            Option::TARGET => function ($value) { $this->target = $value; },
+            Option::METADATA => function ($value) use (&$metadata) { $metadata = array_merge($metadata, $value->data); },
+        ];
 
         foreach ($this->options as $option) {
-            if ($option->name === Option::MSG) {
-                $this->msg = trim($option->value, '"');
-            } elseif ($option->name === Option::SID) {
-                $this->sid = (int)$option->value;
-            } elseif ($option->name === Option::GID) {
-                $this->gid = (int)$option->value;
-            } elseif ($option->name === Option::REV) {
-                $this->rev = (int)$option->value;
-            } elseif ($option->name === Option::CLASSTYPE) {
-                $this->classtype = $option->value;
-            } elseif ($option->name === Option::METADATA) {
-                $metadata = array_merge($metadata, $option->value->data);
+            if (isset($propertyMap[$option->name])) {
+                $propertyMap[$option->name]($option->value);
             }
         }
     }
@@ -91,6 +94,27 @@ class Rule
         foreach ($this->options as $option) {
             if ($option instanceof Option && $option->name === 'msg') {
                 return $option->value;
+            }
+        }
+        return null;
+    }
+
+    public function getPriority(): ?int
+    {
+        foreach ($this->options as $option) {
+            if ($option instanceof Option && $option->name === 'priority') {
+                return (int)$option->value;
+            }
+        }
+        return null;
+    }
+
+    public function getTarget(): ?string
+    {
+        foreach ($this->options as $option) {
+            if ($option instanceof Option && $option->name === 'target') {
+                if ($option->value === 'src_ip' || $option->value === 'dest_ip')
+                    return $option->value;
             }
         }
         return null;
@@ -145,7 +169,7 @@ class Rule
             'options' => array_map(fn($opt) => [
                 'name' => $opt->name,
                 'value' => $opt->value instanceof Metadata ? $opt->value->data : $opt->value,
-            ], $this->options), // Replacing `map` with `array_map`
+            ], $this->options),
         ];
     }
 }

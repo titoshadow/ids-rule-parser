@@ -19,7 +19,7 @@ class ParserTest extends TestCase
             . 'flowbits:unset,otherbit; http_header; pcre:"/\/[a-f0-9]{16}\/([a-z0-9]{1,3}\/)?'
             . 'setup\.(exe|zip)$/U"; pcre:"/^Host\x3a\s.+\.in\r?$/Hmi"; metadata:stage,hostile_download; '
             . 'reference:url,isc.sans.edu/diary/+Vulnerabilityqueerprocessbrittleness/13501; '
-            . 'classtype:trojan-activity; sid:2014929; rev:1;)';
+            . 'classtype:trojan-activity; sid:2014929; rev:1; priority:7; target:dest_ip;)';
 
         $parsedRule = $parser->parseRule($rule);
 
@@ -28,8 +28,10 @@ class ParserTest extends TestCase
         $this->assertEquals('tcp $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS', $parsedRule->header);
         $this->assertEquals(2014929, $parsedRule->getSid());
         $this->assertEquals(1, $parsedRule->getRev());
+        $this->assertEquals(7, $parsedRule->getPriority());
+        $this->assertEquals('src_ip', $parsedRule->getTarget());
         $this->assertEquals("ET CURRENT_EVENTS Request to .in FakeAV Campaign June 19 2012 exe or zip", $parsedRule->getMsg());
-        $this->assertCount(16, $parsedRule->options);
+        $this->assertCount(18, $parsedRule->options);
     }
 
     /**

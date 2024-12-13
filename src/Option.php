@@ -10,6 +10,8 @@ class Option
     const string MSG = 'msg';
     const string REV = 'rev';
     const string SID = 'sid';
+    const string TARGET = 'target';
+    const string PRIORITY = 'priority';
 
     public string $name;
     public mixed $value;
