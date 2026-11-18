@@ -1,33 +1,45 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IDSRuleParser;
 
-class Option
+use Stringable;
+
+class Option implements Stringable
 {
-    const string CLASSTYPE = 'classtype';
-    const string GID = 'gid';
-    const string METADATA = 'metadata';
-    const string MSG = 'msg';
-    const string REV = 'rev';
-    const string SID = 'sid';
-    const string TARGET = 'target';
-    const string PRIORITY = 'priority';
+    public const string CLASSTYPE = 'classtype';
+
+    public const string GID = 'gid';
+
+    public const string METADATA = 'metadata';
+
+    public const string MSG = 'msg';
+
+    public const string REV = 'rev';
+
+    public const string SID = 'sid';
+
+    public const string TARGET = 'target';
+
+    public const string PRIORITY = 'priority';
 
     public string $name;
+
     public mixed $value;
 
-    public function __construct($name, $value = null)
+    public function __construct(string $name, mixed $value = null)
     {
         $this->name = $name;
         $this->value = $value;
     }
 
-
-    public function __toString()
+    public function __toString(): string
     {
-        if (!$this->value) {
+        if ($this->value === null || $this->value === '') {
             return "{$this->name};";
         }
+
         return "{$this->name}:{$this->value};";
     }
 
@@ -36,7 +48,7 @@ class Option
         return $this->name;
     }
 
-    public function getValue()
+    public function getValue(): mixed
     {
         return $this->value;
     }
